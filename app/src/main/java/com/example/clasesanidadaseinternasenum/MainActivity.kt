@@ -1,19 +1,27 @@
 //@Autor:Emerson Valenzuela
 package com.example.clasesanidadaseinternasenum
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.widget.EditText
+import android.widget.RadioButton
 import android.widget.TextView
+import android.widget.Toast
 import kotlin.jvm.internal.Intrinsics
 
 class MainActivity : AppCompatActivity() {
     var TxtNumero1: EditText?=null
     lateinit var Txt_Numero2:EditText
     lateinit var V_Resultado:TextView
+    lateinit var rb_Sumar:RadioButton
+    lateinit var rb_Restar:RadioButton
+    lateinit var rb_Multiplicar:RadioButton
+    lateinit var rb_Dividir:RadioButton
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +35,10 @@ class MainActivity : AppCompatActivity() {
         TxtNumero1 = findViewById(R.id.Txt_Numero1)
         Txt_Numero2 = findViewById(R.id.TXT_Numero2)
         V_Resultado = findViewById(R.id.V_Resultado)
+        rb_Sumar = findViewById(R.id.rb_Sumar)
+        rb_Restar = findViewById(R.id.rb_Restar)
+        rb_Multiplicar = findViewById(R.id.rb_Multiplicar)
+        rb_Dividir = findViewById(R.id.rb_Dividir)
 
 
     }
@@ -159,7 +171,36 @@ class MainActivity : AppCompatActivity() {
         //Hacer la suma
         val suma = valor1_Int+valor2_Int
         val resultado = suma.toString()
-        V_Resultado.setText(resultado)
+
+       // V_Resultado.setText(resultado)
+
+        if (rb_Sumar.isChecked==true){
+            val suma =  valor1_Int+valor2_Int
+            val resultado = suma.toString()
+            V_Resultado.setText(resultado)
+        }else if (rb_Restar.isChecked==true){
+            val resta =  valor1_Int-valor2_Int
+            val resultado = resta.toString()
+            V_Resultado.setText(resultado)
+        }else if(rb_Multiplicar.isChecked==true){
+            val Multiplicacion =  valor1_Int*valor2_Int
+            val resultado = Multiplicacion.toString()
+            V_Resultado.setText(resultado)
+        }else if(rb_Dividir.isChecked==true) {
+            if(valor1_Int != 0 && valor2_Int != 0){
+                val division = valor1_Int/valor2_Int
+                val resultado = division.toString()
+                V_Resultado.setText(resultado)
+            }else{
+                Toast.makeText(this,"No puede dividir entre 0 ", Toast.LENGTH_LONG).show()
+            }
+        }
+
+    }
+
+    fun btn_Siguiente(Vista: View){
+        val ventana:Intent = Intent(applicationContext,MainActivity2::class.java)
+        startActivity(ventana)
 
     }
 
